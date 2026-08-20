@@ -1,0 +1,8 @@
+name: timeanchor
+version: 1.0.0
+description: "每轮注入当前时间（中文），跨天自动强调。pre_llm_call 钩子，不写历史、不碰系统提示缓存。"
+author: "胡椒"
+provides_hooks:
+  - pre_llm_call
+hooks:
+  - pre_llm_call
