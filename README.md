@@ -28,16 +28,30 @@ timeanchor 在每次 API 请求前，自动往上下文里注入一行当前时�
 
 ## 安装
 
-1. 把 `timeanchor/` 目录放到你的 Hermes 插件目录（`~/AppData/Local/hermes/plugins/` 或 `$HERMES_HOME/plugins/`）
-2. 启用插件：
+### 🚀 推荐 — 一行命令安装
 
 ```bash
-hermes plugins enable timeanchor
+hermes plugins install uhyuuuuu/hermes-timeanchor --enable
 ```
 
-3. 重启 Hermes，完事。
+装完重启 Hermes 即可。
 
-验证：随便问助手"现在几点"，它能准确说出当前时间就是生效了。
+> 等 PR #90615 合并到官方索引后，命令还能更短：
+> ```bash
+> hermes plugins install timeanchor
+> ```
+
+### 📦 备选 — 手动下载
+
+如果网络不便或没有 Git，也可以直接下载 ZIP：
+
+1. 下载 https://github.com/uhyuuuuu/hermes-timeanchor 并解压到 `~/.hermes/plugins/timeanchor/`
+2. 启用插件：`hermes plugins enable timeanchor`
+3. 重启 Hermes
+
+### ✅ 验证
+
+随便问助手"现在几点"，它能准确说出你本地当前时间，就是生效了。
 
 ## 原理
 
