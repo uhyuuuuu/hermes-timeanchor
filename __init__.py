@@ -5,7 +5,7 @@
 - time-gap (Randool): 从 state.db 读上一条 assistant 消息时间戳判断跨天
 
 效果：每轮 API 请求自动带上 [当前时间：…]，不写历史、不碰系统提示缓存、
-几乎零 token 成本。时区固定 Asia/Shanghai。
+几乎零 token 成本。时区跟随系统本地时区（自动适配世界各地用户）。
 """
 
 from __future__ import annotations
@@ -17,17 +17,19 @@ from pathlib import Path
 from typing import Any, Optional
 
 _WEEKDAYS = "一二三四五六日"
-_TZ_NAME = "Asia/Shanghai"
 
 
 def _now() -> tuple[datetime, str]:
-    """当前时间（Asia/Shanghai），失败回退系统本地时区。"""
-    try:
-        from zoneinfo import ZoneInfo
-
-        return datetime.now(ZoneInfo(_TZ_NAME)), _TZ_NAME
-    except Exception:
-        return datetime.now().astimezone(), ""
+    """当前时间（系统本地时区），返回 (时间, 时区标签如 UTC+8)。"""
+    now = datetime.now().astimezone()
+    off = now.utcoffset()
+    label = ""
+    if off is not None:
+        total_min = int(off.total_seconds() // 60)
+        sign = "+" if total_min >= 0 else "-"
+        total_min = abs(total_min)
+        label = f"UTC{sign}{total_min // 60:02d}:{total_min % 60:02d}"
+    return now, label
 
 
 def _db_path() -> Optional[Path]:

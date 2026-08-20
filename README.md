@@ -20,7 +20,7 @@ timeanchor 在每次 API 请求前，自动往上下文里注入一行当前时�
 
 ## 特性
 
-- 🕐 每轮注入精确时间（年/月/日/星期/时分，固定 Asia/Shanghai 时区）
+- 🕐 每轮注入精确时间（年/月/日/星期/时分，**自动跟随系统时区**）
 - 🌙 跨天自动提醒（读本地 state.db 最后一条 assistant 消息时间戳，只读、失败静默回退）
 - ⚡ 几乎零成本：每轮仅十几个 token
 - 🧹 不写聊天历史、不碰系统提示缓存（prompt cache 前缀稳定）
@@ -42,6 +42,7 @@ hermes plugins enable timeanchor
 ## 原理
 
 - 钩子：`pre_llm_call`（每次 LLM 请求前触发，返回 `{"context": "文本"}`，自动追加到当轮 user 消息，不落库）
+- 时区：自动跟随系统本地时区，任何国家的用户装上即得本地时间
 - 跨天检测：只读查询 `state.db` 的 `messages` 表，取当前 session 最后一条 assistant 消息的 `timestamp`，与当前时间比较
 - 任何失败都静默回退为纯时间注入，绝不阻塞对话
 
