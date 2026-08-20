@@ -13,7 +13,7 @@ timeanchor 在每次 API 请求前，自动往上下文里注入一行当前时�
 每轮自动注入：
 
 ```
-[当前时间：2026年8月20日 星期四 14:47（Asia/Shanghai）]
+[当前时间：2026年8月20日 星期四 14:47（UTC+08:00）]
 ```
 
 **跨天自动强调**：如果上一条消息是昨天（或更早）的，会追加一句"距上一条消息已跨天，现在是新的一天"，避免助手沿用旧日期概念。
@@ -53,7 +53,7 @@ hermes plugins enable timeanchor
 - [hermes-live-time](https://github.com/chenfeijiang95-ui/hermes-live-time) —— 每轮注入精确时间
 - [time-gap](https://github.com/Randool/time-gap) —— 跨天检测提醒
 
-本插件将其合并为单一中文实现，去掉配置项、固定时区，开箱即用。
+本插件将其合并为单一中文实现，去掉配置项、时区自动跟随系统，开箱即用。
 
 ## License
 
